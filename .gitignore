@@ -1,0 +1,7 @@
+# compilation
+target/
+# os 
+.DS_Store
+# ide
+.idea/
+.vscode/
