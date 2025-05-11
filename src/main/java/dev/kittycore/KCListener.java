@@ -1,5 +1,8 @@
 package dev.kittycore;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -28,11 +31,16 @@ public class KCListener implements Listener {
         long hours = (time / 1000 + 6) % 24;
         long minutes = ((time % 1000) * 60 / 1000) % 60;
 
-        String messages[] = {
-                String.format("Current world time: %d:%d", hours, minutes),
-                String.format("Your balance: %d$", this.handle.getEconomy().getBalance(player.getUniqueId()))
-        };
+        try {
+            String messages[] = {
+                    String.format("current world time: %d:%d", hours, minutes),
+                    String.format("your balance: %d$", this.handle.getEconomy().getBalance(player.getUniqueId()))
+            };
+            player.sendMessage(messages);
+        } catch (SQLException e) {
+            this.handle.getLogger().log(Level.WARNING, "cannot fetch user's balance");
+            this.handle.getLogger().log(Level.WARNING, e.getStackTrace().toString());
+        }
 
-        player.sendMessage(messages);
     }
 }
