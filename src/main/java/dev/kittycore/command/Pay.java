@@ -31,10 +31,6 @@ public class Pay implements CommandExecutor {
         }
 
         String player2 = args[0];
-        if (player2 == player.getName()) {
-            player.sendMessage("you cant give money to yourself lmao");
-            return true;
-        }
         long price = Long.parseLong(args[1]);
 
         try {
@@ -45,11 +41,14 @@ public class Pay implements CommandExecutor {
                 return true;
             }
 
-            UUID player2id = Bukkit.getPlayer(player2).getUniqueId();
+            Player player2Player = Bukkit.getPlayer(player2);
+            UUID player2id = player2Player.getUniqueId();
             this.econInstance.give(player2id, price);
             this.econInstance.give(player.getUniqueId(), -price);
             player.sendMessage(ChatColor.AQUA.toString() + ChatColor.BOLD + "[KC] " + ChatColor.RESET
                     + "paid " + price + "€ to player " + player2);
+            player2Player.sendMessage(ChatColor.AQUA.toString() + ChatColor.BOLD + "[KC] " + ChatColor.RESET
+                    + "player " + player.getName() + " sent you " + price + "€");
 
         } catch (Exception e) {
             e.printStackTrace();
