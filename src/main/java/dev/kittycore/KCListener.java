@@ -20,11 +20,17 @@ public class KCListener implements Listener {
     @EventHandler
     public void PlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        Economy econ = this.handle.getEconomy();
 
-        if (!player.hasPlayedBefore()) {
-            player.sendMessage(ChatColor.AQUA.toString() + ChatColor.BOLD.toString() + "WELKOM IN EUROPA JONGEN!");
+        try {
+            if (!player.hasPlayedBefore() || !econ.userExists(player.getUniqueId())) {
+                econ.createUser(player.getUniqueId());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+        player.sendMessage(ChatColor.AQUA.toString() + ChatColor.BOLD.toString() + "WELKOM IN EUROPA JONGEN!");
         World world = this.handle.getServer().getWorlds().get(0);
         long time = world.getTime();
 
@@ -34,7 +40,7 @@ public class KCListener implements Listener {
         try {
             String messages[] = {
                     String.format("current world time: %d:%d", hours, minutes),
-                    String.format("your balance: %d$", this.handle.getEconomy().getBalance(player.getUniqueId()))
+                    String.format("your balance: %d€", econ.getBalance(player.getUniqueId()))
             };
             player.sendMessage(messages);
         } catch (SQLException e) {

@@ -1,0 +1,8 @@
+main: dev.kittycore.App
+name: Kittycore
+version: 0.1
+
+commands:
+  balance:
+    description: Get the amount of money you currently have
+    usage: /balance

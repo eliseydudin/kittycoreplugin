@@ -45,11 +45,11 @@ public class Economy {
 
         String asStr = userId.toString();
 
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO balance (?, 0)");
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO balance VALUES(?, 500)");
         stmt.setString(1, asStr);
         stmt.executeUpdate();
 
-        stmt = conn.prepareStatement("INSERT INTO tags (?, 0, json_array(0))");
+        stmt = conn.prepareStatement("INSERT INTO tags VALUES(?, 0, json_array(0))");
         stmt.setString(1, asStr);
         stmt.executeUpdate();
     }
@@ -69,8 +69,10 @@ public class Economy {
         PreparedStatement stmt = this.conn.prepareStatement("SELECT balance FROM balance WHERE id=? LIMIT 1");
         stmt.setString(1, id.toString());
         ResultSet set = stmt.executeQuery();
+        long result = set.getLong(1);
+        stmt.close();
 
-        return set.getLong(1);
+        return result;
     }
 
     public void setBalance(UUID id, long money) throws SQLException {
@@ -81,7 +83,8 @@ public class Economy {
         PreparedStatement stmt = this.conn.prepareStatement("UPDATE balance SET balance=? WHERE id=? LIMIT 1");
         stmt.setLong(1, money);
         stmt.setString(2, id.toString());
-
+        stmt.execute();
+        stmt.close();
     }
 
     public void give(UUID id, long money) throws SQLException {
