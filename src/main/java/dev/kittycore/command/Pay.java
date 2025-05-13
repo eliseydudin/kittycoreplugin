@@ -31,6 +31,10 @@ public class Pay implements CommandExecutor {
         }
 
         String player2 = args[0];
+        if (player2 == player.getName()) {
+            player.sendMessage("you cant give money to yourself lmao");
+            return true;
+        }
         long price = Long.parseLong(args[1]);
 
         try {
