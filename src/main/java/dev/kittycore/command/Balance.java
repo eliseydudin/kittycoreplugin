@@ -25,7 +25,7 @@ public class Balance implements CommandExecutor {
         try {
             long balance = this.econInstance.getBalance(player.getUniqueId());
             player.sendMessage(ChatColor.AQUA.toString() + ChatColor.BOLD + "[KC] " + ChatColor.RESET
-                    + "your current balance is: " + new Long(balance).toString() + "€");
+                    + "your current balance is: " + balance + "€");
         } catch (Exception e) {
             e.printStackTrace();
             return false;

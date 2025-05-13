@@ -88,10 +88,6 @@ public class Economy {
     }
 
     public void give(UUID id, long money) throws SQLException {
-        if (!this.userExists(id)) {
-            return;
-        }
-
         long balance = this.getBalance(id);
         this.setBalance(id, balance + money);
     }

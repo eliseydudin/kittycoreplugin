@@ -3,6 +3,7 @@ package dev.kittycore;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import dev.kittycore.command.Balance;
+import dev.kittycore.command.Pay;
 
 public class App extends JavaPlugin {
     private Economy economy;
@@ -17,6 +18,7 @@ public class App extends JavaPlugin {
         }
         this.getServer().getPluginManager().registerEvents(new KCListener(this), this);
         this.getCommand("balance").setExecutor(new Balance(this.economy));
+        this.getCommand("pay").setExecutor(new Pay(this.economy));
     }
 
     public Economy getEconomy() {

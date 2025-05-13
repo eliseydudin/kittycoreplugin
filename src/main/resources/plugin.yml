@@ -6,3 +6,6 @@ commands:
   balance:
     description: Get the amount of money you currently have
     usage: /balance
+  pay:
+    description: Pay money to some user
+    usage: /pay <username> <long>
