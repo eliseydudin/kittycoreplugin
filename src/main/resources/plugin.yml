@@ -8,4 +8,4 @@ commands:
     usage: /balance
   pay:
     description: Pay money to some user
-    usage: /pay [player] [int]
+    usage: /pay <player> [amount]
