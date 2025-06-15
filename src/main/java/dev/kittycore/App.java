@@ -20,7 +20,7 @@ public class App extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new KCListener(this), this);
         this.getCommand("balance").setExecutor(new Balance(this.economy));
         this.getCommand("pay").setExecutor(new Pay(this.economy));
-        this.getCommand("pay").setExecutor(new Spawn(this.economy));
+        this.getCommand("spawn").setExecutor(new Spawn(this.economy));
     }
 
     public Economy getEconomy() {

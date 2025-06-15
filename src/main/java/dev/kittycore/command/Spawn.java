@@ -1,5 +1,7 @@
 package dev.kittycore.command;
 
+import java.util.logging.Level;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,7 +21,7 @@ public class Spawn implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command com, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            Bukkit.getLogger().info("oops cannot teleport player to spawn!");
+            Bukkit.getLogger().log(Level.WARNING, "oops cannot teleport player to spawn!");
             return false;
         }
 
