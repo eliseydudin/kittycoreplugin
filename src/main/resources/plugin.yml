@@ -9,3 +9,6 @@ commands:
   pay:
     description: Pay money to some user
     usage: /pay <player> [amount]
+  spawn:
+    description: Return to the spawn world (you need to pay 10 euros)
+    usage: /spawn
