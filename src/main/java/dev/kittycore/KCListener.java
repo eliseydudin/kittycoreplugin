@@ -1,13 +1,13 @@
 package dev.kittycore;
 
 import java.sql.SQLException;
-import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class KCListener implements Listener {
@@ -44,9 +44,26 @@ public class KCListener implements Listener {
             };
             player.sendMessage(messages);
         } catch (SQLException e) {
-            this.handle.getLogger().log(Level.WARNING, "cannot fetch user's balance");
-            this.handle.getLogger().log(Level.WARNING, e.getStackTrace().toString());
+            e.printStackTrace();
         }
+    }
 
+    @EventHandler
+    public void onKill(PlayerDeathEvent event) {
+        Player killed = event.getEntity();
+        Player killer = killed.getKiller();
+
+        try {
+            long worth = this.handle.getEconomy().getWorth(killed.getUniqueId());
+            this.handle.getEconomy().give(killer.getUniqueId(), worth);
+            killer.sendMessage(ChatColor.AQUA.toString() + ChatColor.BOLD + "[KC] " + ChatColor.RESET
+                    + "you have received " + worth + "€ for killing a player");
+
+            this.handle.getEconomy().give(killed.getUniqueId(), -worth);
+            killed.sendMessage(ChatColor.AQUA.toString() + ChatColor.BOLD + "[KC] " + ChatColor.RESET
+                    + "you have lost " + worth + "€ for getting killed");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
