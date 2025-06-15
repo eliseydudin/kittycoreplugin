@@ -53,6 +53,10 @@ public class KCListener implements Listener {
         Player killed = event.getEntity();
         Player killer = killed.getKiller();
 
+        if (killer == null) {
+            return;
+        }
+
         try {
             long worth = this.handle.getEconomy().getWorth(killed.getUniqueId());
             this.handle.getEconomy().give(killer.getUniqueId(), worth);
