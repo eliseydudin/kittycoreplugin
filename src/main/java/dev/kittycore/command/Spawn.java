@@ -16,8 +16,10 @@ public class Spawn implements CommandExecutor {
         this.instance = in;
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command com, String label, String[] args) {
         if (!(sender instanceof Player)) {
+            Bukkit.getLogger().info("oops cannot teleport player to spawn!");
             return false;
         }
 
