@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 /// Handles balances of players and their tags
 public class Economy {
@@ -102,6 +103,26 @@ public class Economy {
             return 1;
         } else {
             return worth;
+        }
+    }
+
+    /// calculate the money that should be given to a player after gambling
+    public long gamble(long money) {
+        // the bot should be compatible with telegram & in telegram the dice
+        // messages return values in the range from 1 to 64
+        int telegramRes = ThreadLocalRandom.current().nextInt(1, 64 + 1);
+        return gamble(money, telegramRes);
+    }
+
+    /// TODO make this thing more complex
+    public long gamble(long money, int tgValue) {
+        // https://github.com/python-telegram-bot/python-telegram-bot/wiki/Code-snippets#map-a-slot-machine-dice-value-to-the-corresponding-symbols
+        if (tgValue == 64) {
+            return money * 7;
+        } else if (tgValue % 21 == 1) {
+            return money * 3;
+        } else {
+            return -money;
         }
     }
 }
