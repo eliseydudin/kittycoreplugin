@@ -141,13 +141,18 @@ public class KCListener implements Listener {
     private static String[] MOTDS = {
             "uhhh meow?",
             "shout out kittycore mods :3",
-            "i have severe lead poisoning"
+            "i have severe lead poisoning",
+            "its uraniYUM for a reason!",
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "cheddar <3",
+            "bro i love gambling",
+            "its never joever"
     };
 
     @EventHandler
     public void OnServerPing(ServerListPingEvent event) {
         Random rand = new Random();
-        String motd = MOTDS[rand.nextInt(MOTDS.length)];
+        String motd = MOTDS[rand.nextInt(MOTDS.length + 1)];
 
         event.setMotd("KITTYCORE SILLYCORE, message of the day: " + motd);
     }
