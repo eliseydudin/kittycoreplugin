@@ -47,7 +47,9 @@ public class KCListener implements Listener {
         try {
             String messages[] = {
                     String.format("current world time: %d:%d", hours, minutes),
-                    String.format("your balance: %d€", econ.getBalance(player.getUniqueId()))
+                    String.format("your balance: %d€", econ.getBalance(player.getUniqueId())),
+                    "btw all your messages are local by default!",
+                    "add '!' before them to make them global"
             };
             player.sendMessage(messages);
         } catch (SQLException e) {
