@@ -12,3 +12,6 @@ commands:
   spawn:
     description: Return to the spawn world (you need to pay 10 euros)
     usage: /spawn
+  gamble:
+    description: Gamble your hard earned money 
+    usage: /gabmle <amount>
