@@ -121,20 +121,20 @@ public class KCListener implements Listener {
             try {
                 if (global || player.getLocation().distance(sender.getLocation()) <= 30) {
                     player.sendMessage(
-                            this.colorOfPlayer(sender) + "[%s]" + ChatColor.RESET + " " + event.getMessage());
+                            this.colorOfPlayer(sender) + "[" + sender.getName() + "]" + ChatColor.RESET + " "
+                                    + event.getMessage());
                 }
 
             } catch (Exception e) {
                 /* different worlds */
                 if (global) {
                     player.sendMessage(
-                            this.colorOfPlayer(sender) + "[%s]" + ChatColor.RESET + " " + event.getMessage());
+                            this.colorOfPlayer(sender) + "[" + sender.getName() + "]" + ChatColor.RESET + " "
+                                    + event.getMessage());
                 }
             }
         }
 
-        sender.sendMessage(
-                this.colorOfPlayer(sender) + "[%s]" + ChatColor.RESET + " " + event.getMessage());
     }
 
     private ChatColor colorOfPlayer(Player p) {
