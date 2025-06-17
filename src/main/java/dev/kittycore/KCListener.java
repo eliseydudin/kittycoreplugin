@@ -102,8 +102,12 @@ public class KCListener implements Listener {
     // }
 
     @EventHandler
-    public void OnPlayerAchievment(PlayerAdvancementDoneEvent event) {
+    public void OnPlayerAchievement(PlayerAdvancementDoneEvent event) {
         Player player = event.getPlayer();
+
+        if (event.getAdvancement().getKey().getKey().startsWith("recipes/")) {
+            return; // is some recipe
+        }
 
         try {
             this.handle.getEconomy().give(player.getUniqueId(), 50);
