@@ -130,7 +130,7 @@ public class Economy {
     }
 
     public List<Pair<UUID, Long>> getTopFive() throws SQLException {
-        PreparedStatement stmt = this.conn.prepareStatement("SELECT id FROM balance SORT BY balance DESC LIMIT 5");
+        PreparedStatement stmt = this.conn.prepareStatement("SELECT id FROM balance ORDER BY balance DESC LIMIT 5");
         ResultSet set = stmt.executeQuery();
 
         List<Pair<UUID, Long>> data = new ArrayList<>();
