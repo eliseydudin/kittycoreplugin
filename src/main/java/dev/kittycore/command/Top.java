@@ -25,6 +25,7 @@ public class Top implements CommandExecutor {
             for (Pair<UUID, Long> data : this.instance.getTopFive()) {
                 Player p = Bukkit.getPlayer(data.getKey());
                 if (p == null) {
+                    Bukkit.getLogger().info("no player was found with id " + data.getKey());
                     continue;
                 }
 
