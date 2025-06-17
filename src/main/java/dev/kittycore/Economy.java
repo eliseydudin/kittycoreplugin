@@ -68,7 +68,7 @@ public class Economy {
             return;
         }
 
-        PreparedStatement stmt = this.conn.prepareStatement("UPDATE balance SET balance=? WHERE id=? LIMIT 1");
+        PreparedStatement stmt = this.conn.prepareStatement("UPDATE balance SET balance=? WHERE id=?/");
         stmt.setLong(1, money);
         stmt.setString(2, id.toString());
         stmt.execute();
@@ -81,7 +81,7 @@ public class Economy {
         }
 
         PreparedStatement stmt = this.conn
-                .prepareStatement("UPDATE balance SET balance = (balance + ?) WHERE id=? LIMIT 1");
+                .prepareStatement("UPDATE balance SET balance = (balance + ?) WHERE id=?");
         stmt.setLong(1, money);
         stmt.setString(2, id.toString());
         stmt.execute();
