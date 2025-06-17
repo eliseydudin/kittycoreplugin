@@ -152,7 +152,7 @@ public class KCListener implements Listener {
     @EventHandler
     public void OnServerPing(ServerListPingEvent event) {
         Random rand = new Random();
-        String motd = MOTDS[rand.nextInt(MOTDS.length + 1)];
+        String motd = MOTDS[rand.nextInt(MOTDS.length)];
 
         event.setMotd("KITTYCORE SILLYCORE, message of the day: " + motd);
     }
