@@ -135,15 +135,13 @@ public class Economy {
         ResultSet set = stmt.executeQuery();
 
         List<Pair<UUID, Long>> data = new ArrayList<>();
-        int counter = 0;
 
-        do {
+        while (set.next()) {
             UUID id = UUID.fromString(set.getString(1));
             Long money = set.getLong(2);
 
             data.add(new Pair<UUID, Long>(id, money));
-            counter++;
-        } while (set.next() && counter != 0);
+        }
 
         return data;
     }
