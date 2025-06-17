@@ -3,6 +3,7 @@ package dev.kittycore.command;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,12 +25,16 @@ public class Top implements CommandExecutor {
             int counter = 1;
             for (Pair<UUID, Long> data : this.instance.getTopFive()) {
                 Player p = Bukkit.getPlayer(data.getKey());
+                String name;
+
                 if (p == null) {
-                    Bukkit.getLogger().info("no player was found with id " + data.getKey());
-                    continue;
+                    OfflinePlayer pl = Bukkit.getOfflinePlayer(data.getKey());
+                    name = pl.getName();
+                } else {
+                    name = p.getName();
                 }
 
-                sender.sendMessage(counter + ". " + p.getName() + " - " + data.getValue() + "€");
+                sender.sendMessage(counter + ". " + name + " - " + data.getValue() + "€");
                 counter++;
             }
         } catch (Exception e) {
