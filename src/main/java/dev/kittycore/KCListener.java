@@ -1,20 +1,19 @@
 package dev.kittycore;
 
 import java.sql.SQLException;
-//import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-//import org.bukkit.Material;
 import org.bukkit.World;
-//import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-//import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
-//import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-//import org.bukkit.metadata.MetadataValue;
+
+import com.google.common.collect.ImmutableList;
 
 public class KCListener implements Listener {
     private App handle;
@@ -97,4 +96,56 @@ public class KCListener implements Listener {
     // event.setCancelled(true);
     // MetadataValue meta = metadata.get(metadata.size() - 1);
     // }
+
+    @EventHandler
+    public void OnPlayerAchievment(PlayerAdvancementDoneEvent event) {
+        Player player = event.getPlayer();
+
+        try {
+            this.handle.getEconomy().give(player.getUniqueId(), 50);
+            player.sendMessage(ChatColor.AQUA.toString() + ChatColor.BOLD + "[KC] " + ChatColor.RESET
+                    + "you have received 50€ for doing an achievement");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @EventHandler
+    public void OnPlayerMessage(AsyncPlayerChatEvent event) {
+        Player sender = event.getPlayer();
+
+        event.setCancelled(true);
+        boolean global = (event.getMessage().startsWith("!"));
+
+        for (Player player : ImmutableList.copyOf(Bukkit.getServer().getOnlinePlayers())) {
+            try {
+                if (global || player.getLocation().distance(sender.getLocation()) <= 30) {
+                    player.sendMessage(
+                            this.colorOfPlayer(sender) + "[%s]" + ChatColor.RESET + " " + event.getMessage());
+                }
+
+            } catch (Exception e) {
+                /* different worlds */
+                if (global) {
+                    player.sendMessage(
+                            this.colorOfPlayer(sender) + "[%s]" + ChatColor.RESET + " " + event.getMessage());
+                }
+            }
+        }
+    }
+
+    private ChatColor colorOfPlayer(Player p) {
+        ChatColor[] colors = {
+                ChatColor.RED,
+                ChatColor.GREEN,
+                ChatColor.BLUE,
+                ChatColor.LIGHT_PURPLE,
+                ChatColor.AQUA,
+                ChatColor.GOLD,
+                ChatColor.WHITE
+        };
+
+        long colorAsInt = p.getUniqueId().getMostSignificantBits() % colors.length;
+        return colors[(int) colorAsInt];
+    }
 }

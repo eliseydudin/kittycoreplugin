@@ -55,6 +55,10 @@ public class Gamble implements CommandExecutor {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            player.sendMessage(ChatColor.AQUA.toString() + ChatColor.BOLD + "[KC] " + ChatColor.RESET
+                    + "woah please enter a valid number");
+            return false;
         }
 
         return true;

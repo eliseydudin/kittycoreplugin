@@ -68,7 +68,7 @@ public class Economy {
             return;
         }
 
-        PreparedStatement stmt = this.conn.prepareStatement("UPDATE balance SET balance=? WHERE id=?");
+        PreparedStatement stmt = this.conn.prepareStatement("UPDATE balance SET balance=? WHERE id=? LIMIT 1");
         stmt.setLong(1, money);
         stmt.setString(2, id.toString());
         stmt.execute();
@@ -80,7 +80,8 @@ public class Economy {
             return;
         }
 
-        PreparedStatement stmt = this.conn.prepareStatement("UPDATE balance SET balance = (balance + ?)  WHERE id=?");
+        PreparedStatement stmt = this.conn
+                .prepareStatement("UPDATE balance SET balance = (balance + ?) WHERE id=? LIMIT 1");
         stmt.setLong(1, money);
         stmt.setString(2, id.toString());
         stmt.execute();
@@ -96,10 +97,11 @@ public class Economy {
     ///
     /// currently its only based on the balance of a player
     public long getWorth(UUID player) throws SQLException {
-        long worth = this.getBalance(player) / 100;
+        long balance = this.getBalance(player);
+        long worth = balance / 100;
         if (worth > 9999) {
             return 9999;
-        } else if (worth == 0) {
+        } else if (worth == 0 && balance != 0) {
             return 1;
         } else {
             return worth;
@@ -114,7 +116,6 @@ public class Economy {
         return gamble(money, telegramRes);
     }
 
-    /// TODO make this thing more complex
     public long gamble(long money, int tgValue) {
         // https://github.com/python-telegram-bot/python-telegram-bot/wiki/Code-snippets#map-a-slot-machine-dice-value-to-the-corresponding-symbols
         if (tgValue == 64) {
