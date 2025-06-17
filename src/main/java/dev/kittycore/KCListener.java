@@ -132,6 +132,9 @@ public class KCListener implements Listener {
                 }
             }
         }
+
+        sender.sendMessage(
+                this.colorOfPlayer(sender) + "[%s]" + ChatColor.RESET + " " + event.getMessage());
     }
 
     private ChatColor colorOfPlayer(Player p) {
