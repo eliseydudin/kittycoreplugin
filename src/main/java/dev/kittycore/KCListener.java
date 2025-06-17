@@ -1,6 +1,12 @@
 package dev.kittycore;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,6 +18,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 
 import com.google.common.collect.ImmutableList;
 
@@ -134,7 +141,19 @@ public class KCListener implements Listener {
                 }
             }
         }
+    }
 
+    @EventHandler
+    public void OnServerPing(ServerListPingEvent event) {
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream input = classloader.getResourceAsStream("motd_list.txt");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        List<String> motds = reader.lines().collect(Collectors.toList());
+
+        Random rand = new Random();
+        String motd = motds.get(rand.nextInt(motds.size()));
+
+        event.setMotd("KITTYCORE SILLYCORE, message of the day: " + motd);
     }
 
     private ChatColor colorOfPlayer(Player p) {
