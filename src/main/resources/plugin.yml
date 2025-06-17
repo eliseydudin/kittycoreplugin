@@ -14,7 +14,7 @@ commands:
     usage: /spawn
   gamble:
     description: Gamble your hard earned money 
-    usage: /gabmle <amount>
+    usage: /gamble <amount>
   top:
     description: Get the top 5 players (by money)
     usage: /top
