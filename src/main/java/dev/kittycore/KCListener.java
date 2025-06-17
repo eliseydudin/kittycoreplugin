@@ -1,12 +1,7 @@
 package dev.kittycore;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -143,15 +138,16 @@ public class KCListener implements Listener {
         }
     }
 
+    private static String[] MOTDS = {
+            "uhhh meow?",
+            "shout out kittycore mods :3",
+            "i have severe lead poisoning"
+    };
+
     @EventHandler
     public void OnServerPing(ServerListPingEvent event) {
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream input = classloader.getResourceAsStream("motd_list.txt");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-        List<String> motds = reader.lines().collect(Collectors.toList());
-
         Random rand = new Random();
-        String motd = motds.get(rand.nextInt(motds.size()));
+        String motd = MOTDS[rand.nextInt(MOTDS.length)];
 
         event.setMotd("KITTYCORE SILLYCORE, message of the day: " + motd);
     }
