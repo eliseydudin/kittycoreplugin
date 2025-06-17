@@ -130,15 +130,16 @@ public class Economy {
     }
 
     public List<Pair<UUID, Long>> getTopFive() throws SQLException {
-        PreparedStatement stmt = this.conn.prepareStatement("SELECT id FROM balance ORDER BY balance DESC LIMIT 5");
+        PreparedStatement stmt = this.conn
+                .prepareStatement("SELECT id, balance FROM balance ORDER BY balance DESC LIMIT 5");
         ResultSet set = stmt.executeQuery();
 
         List<Pair<UUID, Long>> data = new ArrayList<>();
         int counter = 0;
 
         do {
-            UUID id = UUID.fromString(set.getString(0));
-            Long money = set.getLong(1);
+            UUID id = UUID.fromString(set.getString(1));
+            Long money = set.getLong(2);
 
             data.add(new Pair<UUID, Long>(id, money));
             counter++;
