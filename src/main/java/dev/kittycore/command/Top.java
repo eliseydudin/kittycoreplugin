@@ -24,6 +24,9 @@ public class Top implements CommandExecutor {
             int counter = 1;
             for (Pair<UUID, Long> data : this.instance.getTopFive()) {
                 Player p = Bukkit.getPlayer(data.getKey());
+                if (p == null) {
+                    continue;
+                }
 
                 sender.sendMessage(counter + ". " + p.getName() + " - " + data.getValue() + "€");
                 counter++;
