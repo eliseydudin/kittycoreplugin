@@ -15,3 +15,7 @@ commands:
   gamble:
     description: Gamble your hard earned money 
     usage: /gabmle <amount>
+  top:
+    description: Get the top 5 players (by money)
+    usage: /top
+
