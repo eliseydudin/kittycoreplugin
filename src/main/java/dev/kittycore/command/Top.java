@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import dev.kittycore.Economy;
-import javafx.util.Pair;
+import dev.kittycore.Pair;
 
 public class Top implements CommandExecutor {
     private Economy instance;

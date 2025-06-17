@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javafx.util.Pair;
-
 /// Handles balances of players and their tags
 public class Economy {
     private Connection conn;
