@@ -6,8 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javafx.util.Pair;
 
 /// Handles balances of players and their tags
 public class Economy {
@@ -125,5 +129,23 @@ public class Economy {
         } else {
             return -money;
         }
+    }
+
+    public List<Pair<UUID, Long>> getTopFive() throws SQLException {
+        PreparedStatement stmt = this.conn.prepareStatement("SELECT id FROM balance SORT BY DESC LIMIT 5");
+        ResultSet set = stmt.executeQuery();
+
+        List<Pair<UUID, Long>> data = new ArrayList<>();
+        int counter = 0;
+
+        do {
+            UUID id = UUID.fromString(set.getString(0));
+            Long money = set.getLong(1);
+
+            data.add(new Pair<UUID, Long>(id, money));
+            counter++;
+        } while (set.next() && counter != 0);
+
+        return data;
     }
 }

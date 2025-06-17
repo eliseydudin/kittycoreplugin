@@ -145,7 +145,6 @@ public class KCListener implements Listener {
                 ChatColor.LIGHT_PURPLE,
                 ChatColor.AQUA,
                 ChatColor.GOLD,
-                ChatColor.WHITE
         };
 
         long colorAsInt = Math.abs(p.getUniqueId().getMostSignificantBits()) % colors.length;
