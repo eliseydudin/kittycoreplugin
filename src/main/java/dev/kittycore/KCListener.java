@@ -152,7 +152,17 @@ public class KCListener implements Listener {
             "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "cheddar <3",
             "bro i love gambling",
-            "its never joever"
+            "its never joever",
+            "oreo & monkey <3",
+            "uni & sora & aoba & yoru <3",
+            "kohaze <3",
+            "milly <3",
+            "panko (pancetta)!!",
+            "aint no party like a nyn party abababa",
+            "GUP",
+            "\"get a j*b\" nope im in da fields frollicking",
+            "remember to hydrate!!",
+            "trans rights are human rights!"
     };
 
     @EventHandler
